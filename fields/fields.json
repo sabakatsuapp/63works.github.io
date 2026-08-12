@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "updatedAt": "2026-08-11T05:13:00.689Z",
+ "updatedAt": "2026-08-12T04:22:01.975Z",
  "fields": [
   {
    "id": "f0001",
@@ -3900,6 +3900,16 @@
    "postalCode": "901-2406",
    "lat": 26.2644781,
    "lng": 127.7911877,
+   "status": "active"
+  },
+  {
+   "id": "f0307",
+   "name": "テストフィールド（配信確認用）",
+   "hint": "検証用",
+   "nearestStation": "検証",
+   "nearestIC": "検証",
+   "shuttleService": false,
+   "address": "東京都テスト区検証町1-1",
    "status": "active"
   }
  ]
