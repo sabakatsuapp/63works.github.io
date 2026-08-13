@@ -146,7 +146,15 @@
   .railSec{position:relative;z-index:1;padding:20px 0 40px;}
   .railH{margin:0 0 6px;text-align:center;font-size:26px;font-weight:900;letter-spacing:1px;}
   .railLead{text-align:center;color:var(--dim);font-size:13px;line-height:1.9;margin:0 0 26px;font-weight:500;}
-  .rail{display:flex;gap:20px;overflow-x:auto;padding:10px 24px 22px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+  .rail{display:flex;gap:20px;overflow-x:auto;padding:10px 24px 22px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#3a414c transparent;}
+  .rail::-webkit-scrollbar{height:8px;}
+  .rail::-webkit-scrollbar-thumb{background:#3a414c;border-radius:4px;}
+  .rail::-webkit-scrollbar-track{background:transparent;}
+  /* 5枚(約1178px)が収まる広いPC画面では中央寄せ＋スクロール案内を非表示（溢れないため） */
+  @media (min-width:1220px){
+    .rail{justify-content:center;}
+    .railHint{display:none;}
+  }
   .railItem{flex:none;width:210px;scroll-snap-align:center;}
   .railItem:nth-child(odd){transform:rotate(-1.2deg);}
   .railItem:nth-child(even){transform:rotate(1.2deg);}
@@ -330,7 +338,7 @@
   <!-- スクショレール -->
   <div class="railSec" data-reveal>
     <h2 class="railH">画面は、<span style="color:var(--ink);">こんな感じ。</span></h2>
-    <p class="railLead">実際の画面です。横にスクロールして見てください。</p>
+    <p class="railLead">実際の画面です。<span class="railHint">横にスクロールして見てください。</span></p>
     <div class="rail">
       <div class="railItem"><div class="railFrame"><img src="./assets/lp/shot-home.png" alt="ホーム画面" loading="lazy"></div><div class="railCap">ホーム</div></div>
       <div class="railItem"><div class="railFrame"><img src="./assets/lp/shot-fields.png" alt="フィールド一覧" loading="lazy"></div><div class="railCap">フィールド名鑑</div></div>
