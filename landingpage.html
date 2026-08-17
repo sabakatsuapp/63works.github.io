@@ -169,6 +169,10 @@
   @media (max-width:820px){ .fgrid{grid-template-columns:1fr;gap:30px} }
   .fcell.wide{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.1fr;gap:34px;align-items:center}
   @media (max-width:820px){ .fcell.wide{grid-template-columns:1fr} }
+  /* 横長セルが続くときは画像の左右を入れ替えてリズムを出す */
+  .fcell.wide.rev{grid-template-columns:1.1fr 1fr}
+  .fcell.wide.rev .panel{order:-1}
+  @media (max-width:820px){ .fcell.wide.rev .panel{order:0} }
   .fcell h3{font-size:16.5px;margin:0 0 8px;display:flex;align-items:center;gap:9px}
   .fcell h3 .ic{font-size:18px;line-height:1}
   .fcell p{margin:0;color:var(--sub);font-size:14.5px;line-height:1.85}
@@ -269,7 +273,7 @@
     <div class="fcell wide">
       <div>
         <h3><span class="ic">🗺</span>フィールド名鑑から登録する</h3>
-        <p>全国のサバゲーフィールド約300件を収録しています。名前を選ぶだけで、住所・最寄りIC・最寄り駅・無料送迎の有無が記録に入ります。</p>
+        <p>全国のサバゲーフィールド約300件を収録しています。名前を選ぶだけで、住所・最寄りIC・最寄り駅・無料送迎の有無が記録に入ります。天気や電車の乗換も、ワンタップで調べられます。</p>
       </div>
       <div class="panel two">
         <img src="./assets/lp/shot-fields.png" alt="フィールド一覧画面">
@@ -278,9 +282,9 @@
     </div>
 
     <div class="fcell">
-      <h3><span class="ic">🌤</span>天気と行き方を調べる</h3>
-      <p>フィールドの天気、電車の乗換、車の経路を、アプリから開けます。</p>
-      <div class="panel tail"><img src="./assets/lp/shot-weather.png" alt="天気アプリを選ぶ画面"></div>
+      <h3><span class="ic">📅</span>次の出撃を予定に入れる</h3>
+      <p>予定を登録しておくと、前日に通知でお知らせします。</p>
+      <div class="panel"><img src="./assets/lp/shot-plan.png" alt="出撃予定のカレンダー画面"></div>
     </div>
 
     <div class="fcell">
@@ -307,7 +311,7 @@
 
     <div class="fcell">
       <h3><span class="ic">📷</span>写真を残す</h3>
-      <p>その日の記録に写真を残せます。1日あたり写真10枚、フィールドマップ5枚まで登録できます。</p>
+      <p>その日の記録に写真を残せます。1日あたり写真10枚まで登録できます。</p>
       <div class="panel tail"><img src="./assets/lp/shot-photos.png" alt="記録に写真を追加した画面"></div>
     </div>
 
@@ -333,17 +337,14 @@
       <div class="panel"><img src="./assets/lp/shot-stats.png" alt="統計画面"></div>
     </div>
 
-    <div class="fcell">
-      <h3><span class="ic">🎴</span>戦績をカードにする</h3>
-      <p>記録した戦績を入れたプロフィールカードを、画像として書き出せます。二つ名をつけたり、色を選んだりできます。</p>
+    <div class="fcell wide rev">
+      <div>
+        <h3><span class="ic">🎴</span>戦績をカードにする</h3>
+        <p>記録した戦績を入れたプロフィールカードを、画像として書き出せます。二つ名をつけたり、色を選んだりできます。無料で4色、プレミアムで33色からお選びいただけます。</p>
+      </div>
       <div class="panel"><img src="./assets/lp/shot-profile-card.png" alt="プロフィールカード画面"></div>
     </div>
 
-    <div class="fcell">
-      <h3><span class="ic">📅</span>次の出撃を予定に入れる</h3>
-      <p>予定を登録しておくと、前日に通知でお知らせします。予定は画像にして、一緒に行く人へ共有できます。</p>
-      <div class="panel"><img src="./assets/lp/shot-plan.png" alt="出撃予定のカレンダー画面"></div>
-    </div>
 
   </div>
 </div></section>
