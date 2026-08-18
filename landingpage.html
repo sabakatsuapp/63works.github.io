@@ -11,13 +11,16 @@
 <meta property="og:title" content="サバ活｜サバゲーの活動を応援するアプリ">
 <meta property="og:description" content="フィールドをさがす、その日の戦績を記録する、あとから集計して振り返る。サバゲーの一日を、ひとつのアプリにまとめられます。アプリのご利用は無料です。">
 <meta property="og:url" content="https://sabakatsuapp.github.io/landingpage.html">
-<meta property="og:image" content="https://sabakatsuapp.github.io/app-icon.png">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://sabakatsuapp.github.io/assets/lp/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@SabakatsuApp">
 <link rel="icon" href="./app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/yakuhanjp@4.1.1/dist/css/yakuhanjp_s.min.css" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -61,18 +64,22 @@
   /* ── 任天堂のページに寄せた配色：白基調・彩度を抑える・線は細く ── */
   :root{
     --bg:#ffffff;
-    --bg2:#f4f8ec;      /* セクションの帯：無彩色グレーだと白っぽく見えるため、ごく淡いライムに */
+    --bg2:#f7f7f8;      /* セクションの帯：お手本に合わせたニュートラル */
+    --panel:#e4e7ea;    /* 画像パネル：全セクション共通のニュートラルグレー（お手本と同じ手）。
+                           白い帯・淡ライムの帯のどちらの上でもはっきり「面」に見える濃さにする */
     --text:#1b1d21;
     --sub:#5b6169;
     --line:#e3e5e8;
-    --accent:#5aa716;   /* サバ活のライムを、白地で読める濃さに落とす */
-    --accentBg:#f1f8e6;
+    --accent:#e60012;   /* お手本と同じブランド赤。アプリのライトテーマも赤（#D93333）なのでスクショと馴染む */
+    --accentBg:#fdf1f1;  /* 赤の淡い面（おすすめプランの背景） */
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     margin:0;background:var(--bg);color:var(--text);
-    font-family:'Noto Sans JP',-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',Meiryo,sans-serif;
+    /* ニンテンドー実測と同じ並び（YakuHanJPs=約物を詰める / Roboto=欧文 / ヒラギノ=Mac・iPhone）。
+       Windows向けの受け皿だけ、彼らの自前webフォント(nc3Jp)の代わりに Noto Sans JP */
+    font-family:YakuHanJPs,Roboto,'Hiragino Kaku Gothic ProN','Noto Sans JP',Meiryo,sans-serif;
     line-height:1.9;font-size:16px;-webkit-font-smoothing:antialiased;
   }
   img{max-width:100%;display:block}
@@ -90,26 +97,30 @@
 
   .navIn .navsub{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:.04em}
   @media (max-width:700px){ .navIn .navsub{display:none} }   /* 狭い画面ではリンクを優先 */
-  .close .cname{font-size:20px;font-weight:800;margin-top:2px}
-  .close .csub{font-size:13px;color:var(--sub);font-weight:700;letter-spacing:.05em;margin:4px 0 22px}
   footer .brandline{align-items:flex-start}
-  footer .brandline .fsub{display:block;font-size:12.5px;color:var(--accent);font-weight:700;
+  footer .brandline .fsub{display:block;font-size:12.5px;color:rgba(255,255,255,.88);font-weight:700;
     letter-spacing:.04em;margin-top:2px}
   /* ── ヒーロー（任天堂型：ブランド色の全面帯＋左に端末・右にロゴと説明） ── */
-  .heroband{background:#14171c;color:#fff;padding:46px 0 42px}
+  .heroband{background:#e60012;color:#fff;padding:40px 0 36px}
   .heroIn{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
   @media (max-width:820px){ .heroIn{grid-template-columns:1fr;gap:30px;text-align:center} }
+  /* モバイルは1列に落ちるとHTMLの順（写真→文字）がそのまま出るため、文字を先頭へ引き上げる。
+     この指定はモバイル幅でしか読まれない＝PCの表示には影響しない */
+  @media (max-width:820px){ .heroIn .heroCopy{order:-1} }
   /* ヒーローは端末2台（お手本と同じ手）。手前＝何のアプリかを説明する画面、
      奥＝プロフィールカード（色と楽しさを担当）。1枚に2つの仕事を背負わせない */
-  .heroPhone{display:flex;justify-content:center;align-items:flex-end}
+  .heroPhone{display:flex;justify-content:center;align-items:flex-end;
+    /* お手本と同じ「赤い帯は端末の途中まで」：負のマージンで端末を帯の下へはみ出させる。
+       端末（.frame）はposition:relative+z-indexなので、次セクションの背景より上に描かれる */
+    margin-bottom:-186px}
   .heroPhone .frame{border-radius:32px;padding:8px;background:#eef1f4;
     box-shadow:0 22px 50px rgba(0,0,0,.5)}
   .heroPhone .frame img{border-radius:25px;display:block;width:100%}
-  .heroPhone .front{width:212px;position:relative;z-index:2}
-  .heroPhone .back{width:178px;position:relative;z-index:1;margin-left:-42px;margin-bottom:36px}
+  .heroPhone .front{width:244px;position:relative;z-index:2}
+  .heroPhone .back{width:204px;position:relative;z-index:1;margin-left:-50px;margin-bottom:40px}
   @media (max-width:420px){
-    .heroPhone .front{width:172px}
-    .heroPhone .back{width:144px;margin-left:-34px;margin-bottom:28px}
+    .heroPhone .front{width:196px}
+    .heroPhone .back{width:164px;margin-left:-40px;margin-bottom:32px}
   }
   .lockup{display:flex;align-items:center;gap:13px;margin:0 0 18px}
   @media (max-width:820px){ .lockup{justify-content:center} }
@@ -118,10 +129,13 @@
   .lockup img{width:56px;height:56px;border-radius:14px;background:#fff;
     box-shadow:0 3px 10px rgba(0,0,0,.35)}
   .lockup h1{font-size:31px;font-weight:800;margin:0;letter-spacing:.03em;line-height:1.2}
-  .lockup .sub{font-size:13.5px;color:var(--accent);font-weight:700;letter-spacing:.06em;margin-top:4px}
-  .heroband .desc{font-size:15px;line-height:1.95;margin:0 0 14px;color:#dde4ea}
+  .lockup .sub{font-size:13.5px;color:#fff;font-weight:700;letter-spacing:.06em;margin-top:4px;opacity:.92}
+  /* お手本実測: 15.8px/700/行間2.0/字間0.04em（赤地の白文字は全部太字が任天堂流） */
+  .heroband .desc{font-size:16px;font-weight:700;line-height:2;letter-spacing:.04em;margin:0 0 14px;color:#fff}
+  /* 狭い画面ではPC向けの手動改行を無効化（自動折り返しとの二重改行を防ぐ） */
+  @media (max-width:820px){ .heroband .desc br{display:none} }
   /* お手本では「ご利用は無料です」は説明文より一段小さい（太字のまま） */
-  .heroband .free{font-weight:700;font-size:10px;margin:0 0 24px}
+  .heroband .free{font-weight:700;font-size:12.5px;margin:0 0 24px}  /* お手本実測12.7px */
   .heroband .badges{justify-content:flex-start;margin-bottom:0;padding:0}
   @media (max-width:820px){ .heroband .badges{justify-content:center} }
 
@@ -136,7 +150,10 @@
   .badges .apple img{height:40px;width:auto}
   .badges .google img{height:52px;width:auto}
   /* ── セクション ── */
-  section{padding:52px 0;border-top:1px solid var(--line)}
+  section{padding:72px 0;border-top:1px solid var(--line)}
+  /* ヒーロー直後のセクションは、はみ出した端末（64px）と重ならないよう上に余白を足す */
+  .heroband + section{padding-top:224px}
+  @media (max-width:820px){ .heroband + section{padding-top:212px} }
   section.tint{background:var(--bg2)}
   /* 濃色の帯：白が続く単調さを切る。画像（暗いUI）とも馴染む */
   section.dark{background:#14171c;color:#eef1f4;border-top-color:#232830}
@@ -144,10 +161,7 @@
   section.dark .feat li{border-bottom-color:#232830}
   section.dark .feat span{color:#aeb8c2}
   section.dark .notes li{color:#93a0ac}
-  section.dark h2::before{background:#d6f549}
-  h2{font-size:21px;font-weight:700;margin:0 0 8px;position:relative;padding-left:14px}
-  h2::before{content:"";position:absolute;left:0;top:.28em;width:5px;height:1.05em;
-    border-radius:3px;background:var(--accent)}
+  h2{font-size:21px;font-weight:700;margin:0 0 8px}
   .lead{color:var(--sub);font-size:15px;margin:0 0 26px;max-width:660px}
   .cols{display:grid;grid-template-columns:1fr 380px;gap:44px;align-items:center}
   .cols.rev .shot{order:-1}
@@ -160,31 +174,37 @@
   .feat span{color:var(--sub);font-size:14px}
 
   /* ── 機能紹介グリッド（任天堂スタイル：中央見出し＋大1枚＋小2〜3枚） ── */
-  .gtitle{text-align:center;margin:0 0 34px}
-  .gtitle h2{font-size:23px;padding:0 0 16px;display:inline-block;position:relative}
-  .gtitle h2::before{display:none}
+  .gtitle{text-align:center;margin:0 0 56px}  /* h2の下パディング16pxと合わせて実測80pxに */
+  .gtitle h2{font-size:40px;padding:0 0 16px;display:inline-block;position:relative}  /* お手本実測40px */
+  @media (max-width:820px){ .gtitle h2{font-size:29px} }
   .gtitle h2::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);
     width:110px;height:3px;border-radius:2px;background:var(--accent)}
-  .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:34px 30px}
-  @media (max-width:820px){ .fgrid{grid-template-columns:1fr;gap:30px} }
+  .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:56px 40px}
+  @media (max-width:820px){ .fgrid{grid-template-columns:1fr;gap:40px} }
   .fcell.wide{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.1fr;gap:34px;align-items:center}
   @media (max-width:820px){ .fcell.wide{grid-template-columns:1fr} }
   /* 横長セルが続くときは画像の左右を入れ替えてリズムを出す */
   .fcell.wide.rev{grid-template-columns:1.1fr 1fr}
   .fcell.wide.rev .panel{order:-1}
   @media (max-width:820px){ .fcell.wide.rev .panel{order:0} }
-  .fcell h3{font-size:16.5px;margin:0 0 8px;display:flex;align-items:center;gap:9px}
-  .fcell h3 .ic{font-size:18px;line-height:1}
+  .fcell h3{font-size:24px;margin:0 0 10px;display:flex;align-items:center;gap:10px}  /* お手本実測24px */
+  @media (max-width:820px){ .fcell h3{font-size:20px} }
+  /* 機能アイコン：お手本と同じ「ブランド色の単色ラインアイコン」。色はここで一括指定 */
+  .fcell h3 .ic{color:var(--accent);line-height:0;flex:none}
+  .fcell h3 .ic svg{width:23px;height:23px;display:block}
   .fcell p{margin:0;color:var(--sub);font-size:14.5px;line-height:1.85}
-  .panel{background:var(--bg2);border-radius:16px;padding:20px;display:grid;place-items:center;
+  .panel{background:var(--panel);border-radius:16px;padding:20px;display:grid;place-items:center;
     margin-top:14px}
   .fcell.wide .panel{margin-top:0}
   /* 任天堂と同じ見せ方：画面の上側だけを見せ、パネルの下端で切る（続きがある感じを出す）
      ★下に意味がある画像（天気アプリの選択シートなど）は .panel.tail で下側を見せる */
   .panel img{width:180px;max-width:100%;aspect-ratio:9/13;object-fit:cover;object-position:top;
-    border-radius:13px;display:block}
+    border-radius:13px;display:block;border:1px solid var(--line)}
   .fcell.wide .panel img{width:215px}
   .panel.tail img{object-position:bottom}
+  /* カードはスマホのスクショ（9:13）ではなく書き出し画像（4:5）。
+     切り抜くとQRコードが欠けるため、比率を4:5にして全体を見せる */
+  .panel.card img{width:250px;aspect-ratio:4/5;object-fit:contain;border-radius:10px}
   .panel.full img{aspect-ratio:auto;object-fit:contain}
   .panel.two{grid-template-columns:1fr 1fr;gap:14px}
   /* 撮影待ちの枠（本番では実スクショに差し替える） */
@@ -211,16 +231,22 @@
   details p{color:var(--sub);font-size:14.5px;margin:10px 0 0}
 
   /* ── 締め：煽らず、ボタンだけ ── */
-  .close{text-align:center;padding:56px 0;background:var(--bg2);border-top:1px solid var(--line)}
-  .close img{width:76px;height:76px;border-radius:18px;margin:0 auto 16px}
-  /* フッターは濃色で締める。バッジは黒バッジのまま使える（規定違反にならない） */
-  footer{background:#14171c;color:#9aa5b1;padding:40px 0 48px;font-size:13px;border-top:none}
-  footer a{color:#d9e0e7;margin-right:18px;text-decoration:none}
+  /* フッターはお手本と同じ2段：ブランド赤の帯（ロゴ＋ページ先頭へ）＋白い下部（リンク・法的表記） */
+  footer{background:#fff;color:#4b5259;padding:0 0 46px;font-size:13px;border-top:none}
+  footer .fbar{background:#e60012;padding:20px 0}
+  footer .fbar .wrap{position:relative}
+  footer a{color:#4b5259;margin-right:18px;text-decoration:none}
   footer a:hover{text-decoration:underline}
-  footer .brandline{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-  footer .brandline img{width:34px;height:34px;border-radius:8px}
+  footer .brandline{display:flex;align-items:center;gap:10px;margin:0}
+  footer .brandline img{width:34px;height:34px;border-radius:8px;background:#fff}
   footer .brandline b{color:#fff;font-size:15px}
-  footer .legal{margin-top:16px;line-height:1.9;color:#7d8895}
+  footer .fbody{padding-top:28px}
+  footer .legal{margin-top:16px;line-height:1.9;color:#8a929b}
+  /* ページ先頭へ（お手本と同じ、赤い帯の右端の^。html{scroll-behavior:smooth}で滑らかに戻る） */
+  .pagetop{position:absolute;top:50%;transform:translateY(-50%);right:20px;width:42px;height:42px;
+    border-radius:50%;border:1px solid rgba(255,255,255,.6);display:grid;place-items:center;color:#fff}
+  .pagetop svg{width:18px;height:18px}
+  .pagetop:hover{background:rgba(255,255,255,.16)}
 </style>
 </head>
 <body>
@@ -238,8 +264,8 @@
 <div class="heroband">
   <div class="wrap heroIn">
     <div class="heroPhone">
-      <div class="frame front"><img src="./assets/lp/shot-stats.png" alt="サバ活の統計画面"></div>
-      <div class="frame back"><img src="./assets/lp/shot-profile-card.png" alt="サバ活のプロフィールカード"></div>
+      <div class="frame front"><img src="./assets/lp/shot-calendar.png" alt="サバ活の記録画面（カレンダーと出撃の記録）"></div>
+      <div class="frame back"><img src="./assets/lp/shot-stats.png" alt="サバ活の統計画面"></div>
     </div>
     <div class="heroCopy">
       <div class="lockup">
@@ -272,25 +298,25 @@
 
     <div class="fcell wide">
       <div>
-        <h3><span class="ic">🗺</span>フィールド名鑑から登録する</h3>
-        <p>全国のサバゲーフィールド約300件を収録しています。名前を選ぶだけで、住所・最寄りIC・最寄り駅・無料送迎の有無が記録に入ります。天気や電車の乗換も、ワンタップで調べられます。</p>
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg></span>フィールドを探す</h3>
+        <p>全国のサバゲーフィールド約300件を収録しています。名前を選ぶだけで、住所・最寄りIC・最寄り駅・無料送迎の有無が探せます。天気や電車の乗換も、ワンタップで調べられます。</p>
       </div>
       <div class="panel two">
-        <img src="./assets/lp/shot-fields.png" alt="フィールド一覧画面">
-        <img src="./assets/lp/shot-field-detail.png" alt="フィールド詳細画面">
+        <img loading="lazy" decoding="async" src="./assets/lp/shot-fields.png" alt="フィールド一覧画面">
+        <img loading="lazy" decoding="async" src="./assets/lp/shot-field-detail.png" alt="フィールド詳細画面">
       </div>
     </div>
 
     <div class="fcell">
-      <h3><span class="ic">📅</span>次の出撃を予定に入れる</h3>
+      <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>次の出撃を予定に入れる</h3>
       <p>予定を登録しておくと、前日に通知でお知らせします。</p>
-      <div class="panel"><img src="./assets/lp/shot-plan.png" alt="出撃予定のカレンダー画面"></div>
+      <div class="panel"><img loading="lazy" decoding="async" src="./assets/lp/shot-plan.png" alt="出撃予定のカレンダー画面"></div>
     </div>
 
     <div class="fcell">
-      <h3><span class="ic">🎒</span>持ち物を確認する</h3>
+      <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="m9 13 2 2 4-4"/></svg></span>持ち物を確認する</h3>
       <p>装備リストを作っておくと、出発前に持ち物を確認できます。</p>
-      <div class="panel"><img src="./assets/lp/shot-gear.png" alt="装備リストの画面"></div>
+      <div class="panel"><img loading="lazy" decoding="async" src="./assets/lp/shot-gear.png" alt="装備リストの画面"></div>
     </div>
 
   </div>
@@ -303,22 +329,22 @@
 
     <div class="fcell wide">
       <div>
-        <h3><span class="ic">⚔</span>1戦ごとに記録する</h3>
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></span>1戦ごとに記録する</h3>
         <p>勝敗・キル数・デス数・ゲーム形式を、タップで入力できます。前のゲームの内容をコピーして次の記録を作ることもできます。</p>
       </div>
-      <div class="panel tail"><img src="./assets/lp/shot-game-input.png" alt="1日の記録とゲームの明細"></div>
+      <div class="panel tail"><img loading="lazy" decoding="async" src="./assets/lp/shot-game-input.png" alt="1日の記録とゲームの明細"></div>
     </div>
 
     <div class="fcell">
-      <h3><span class="ic">📷</span>写真を残す</h3>
-      <p>その日の記録に写真を残せます。1日あたり写真10枚まで登録できます。</p>
-      <div class="panel tail"><img src="./assets/lp/shot-photos.png" alt="記録に写真を追加した画面"></div>
+      <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>写真を残す</h3>
+      <p>その日の写真を、記録に残せます。</p>
+      <div class="panel tail"><img loading="lazy" decoding="async" src="./assets/lp/shot-photos.png" alt="記録に写真を追加した画面"></div>
     </div>
 
     <div class="fcell">
-      <h3><span class="ic">👥</span>一緒に行った人を記録する</h3>
+      <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>一緒に行った人を記録する</h3>
       <p>同行者を登録しておくと、誰と何回行ったかがわかります。</p>
-      <div class="panel"><img src="./assets/lp/shot-companions.png" alt="同行者の画面"></div>
+      <div class="panel"><img loading="lazy" decoding="async" src="./assets/lp/shot-companions.png" alt="同行者の画面"></div>
     </div>
 
   </div>
@@ -326,31 +352,32 @@
 
 <!-- ══ 機能紹介③：あとで ══ -->
 <section class="tint"><div class="wrap">
-  <div class="gtitle"><h2>記録を集計して、振り返る</h2></div>
+  <div class="gtitle"><h2>じぶんの記録を振り返る</h2></div>
   <div class="fgrid">
 
     <div class="fcell wide">
       <div>
-        <h3><span class="ic">📊</span>勝率やK/Dを自動で集計する</h3>
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span>勝率やK/Dを自動で集計する</h3>
         <p>出撃日数、勝率、K/D、総プレイ時間、よく行くフィールドを自動で集計します。期間をしぼって見ることもできます。</p>
       </div>
-      <div class="panel"><img src="./assets/lp/shot-stats.png" alt="統計画面"></div>
+      <div class="panel"><img loading="lazy" decoding="async" src="./assets/lp/shot-stats.png" alt="統計画面"></div>
     </div>
 
     <div class="fcell wide rev">
       <div>
-        <h3><span class="ic">🎴</span>戦績をカードにする</h3>
-        <p>記録した戦績を入れたプロフィールカードを、画像として書き出せます。二つ名をつけたり、色を選んだりできます。無料で4色、プレミアムで33色からお選びいただけます。</p>
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2.2"/><path d="M13.5 10.5H19M13.5 14h3.5"/></svg></span>戦績をカードにする</h3>
+        <p>記録した戦績を入れたプロフィールカードを、画像として書き出せます。二つ名をつけたり、色を選んだりできます（無料4色・プレミアム33色）。できあがったカードは、XなどのSNSでそのまま共有できます。</p>
       </div>
-      <div class="panel"><img src="./assets/lp/shot-profile-card.png" alt="プロフィールカード画面"></div>
+      <div class="panel card"><img loading="lazy" decoding="async" src="./assets/lp/shot-card.jpg" alt="サバ活で書き出したプロフィールカード"></div>
     </div>
+
 
 
   </div>
 </div></section>
 <!-- ══ 料金 ══ -->
 <section id="price"><div class="wrap">
-  <h2>料金について</h2>
+  <div class="gtitle"><h2>料金について</h2></div>
   <p class="lead">記録・写真・フィールド・同行者・装備リストは、無料のままご利用いただけます。プレミアムは買い切りで、月額料金はありません。</p>
   <div class="plans">
     <div class="plan">
@@ -380,7 +407,7 @@
 
 <!-- ══ データの保存 ══ -->
 <section class="tint"><div class="wrap">
-  <h2>記録の保存について</h2>
+  <div class="gtitle"><h2>記録の保存について</h2></div>
   <p class="lead">アカウントの作成やメールアドレスの登録は必要ありません。戦績や写真などの記録は、お使いの端末内に保存されます。</p>
   <ul class="feat" style="max-width:660px">
     <li><b>端末内に保存されます</b><span>記録データを当社のサーバーに送信することはありません。</span></li>
@@ -390,7 +417,7 @@
 
 <!-- ══ FAQ ══ -->
 <section id="faq"><div class="wrap">
-  <h2>よくある質問</h2>
+  <div class="gtitle"><h2>よくある質問</h2></div>
   <details><summary>無料のままでも使えますか。</summary>
     <p>はい。記録・写真・フィールド・同行者・装備リストの登録に制限はありません。基本の統計も無料でご覧いただけます。</p></details>
   <details><summary>月額料金はかかりますか。</summary>
@@ -409,23 +436,15 @@
 </div></section>
 
 <!-- ══ 締め：見出しも煽りも置かない ══ -->
-<div class="wrap close">
-  <img src="./app-icon.png" alt="">
-  <div class="cname">サバ活</div>
-  <div class="csub">サバゲー活動を、もっと楽しく。</div>
-  <div class="badges" style="margin-bottom:0">
-    <a class="apple" href="https://apps.apple.com/jp/app/id6777925478" aria-label="App Store でダウンロード">
-      <img src="./assets/lp/app-store-ja.svg" alt="App Store でダウンロード"></a>
-    <a class="google" href="https://play.google.com/store/apps/details?id=com.works63.sabakatsu" aria-label="Google Play で手に入れよう">
-      <img src="./assets/lp/google-play-ja.png" alt="Google Play で手に入れよう"></a>
-  </div>
-</div>
-
-<footer><div class="wrap">
+<footer>
+<div class="fbar"><div class="wrap">
+  <a class="pagetop" href="#" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg></a>
   <div class="brandline">
     <img src="./app-icon.png" alt="">
     <span><b>サバ活</b><span class="fsub">サバゲー活動を、もっと楽しく。</span></span>
   </div>
+</div></div>
+<div class="wrap fbody">
   <a href="./privacy-policy.html">プライバシーポリシー</a><a href="./terms.html">利用規約</a><a href="./tokusho.html">特定商取引法に基づく表記</a><a href="./support.html">お問い合わせ</a><a href="https://x.com/SabakatsuApp">X（@SabakatsuApp）</a>
   <div class="legal">
     ※ App Store®は、米国およびその他の国で登録されたApple Inc.のサービスマークです。<br>
